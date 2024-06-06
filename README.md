@@ -12,20 +12,38 @@ This industry is embracing technology in various ways to innovate and improve th
 
 Imagine a program that helps you pick out outfits based on things like the weather, the colors you like, and where you're going. It could make getting dressed in the morning a whole lot easier and more fun, making fashion more accessible and enjoyable for everyone.  
 
-
+ **How the Logic Paradigm would be used.**
 A program can be effectively implemented using the **logic programming paradigm**. Logic programming, supported by languages such as Prolog, revolves around defining rules and facts that the system uses to infer conclusions. For this program, we can define facts and rules about the user's wardrobe items and their characteristics (type, color, weather, formality). We can also define rules of non-matching colors to exclude or rules that dictate suitable outfit combinations based on the weather and event types. With this program then queries can be done to generate suitable outfits, ensuring they meet all the specified criteria. This approach takes advantage of the benefits of logic programming by managing complex decision-making processes and rule-based reasoning, making it suitable for creating a personalized outfit recommendation system.
 
 ## Model of the Solution
-Explain the logic of your solution in diagram and be specific about how the paradigm would be used.
+**The logic of my solution in a diagram**
 
-### Logic Paradigm 
-...
+A flowchart portrays a process, system or computer algorithm. This model is a visual representation of data flow and they are useful to spell out the **logic** behind a program before even starting to code the automated process. They are mostly used to describe processes in a way that is clear and easy-to-understand. Flowcharts use rectangles, ovals, diamonds and other shapes to define the type of step, along with connecting arrows to define flow and sequence.  (Lucid Software Inc, 2024).
+
+![styleflow drawio](https://github.com/ZValer/Style_Logic/assets/111622587/aba4b9b4-89a1-4807-b93c-9e01181d1581)
+
+
+Let´s break down the model:
+The steps are connected through *flow arrows*.   
+Some *comments/annotations* were also made to specify a couple of steps.   
+The squares represent *processes* as for the diamonds they represent *decisions*. (Lucid Software Inc, 2024). As you can be seen in the diagram, processes follow the flow go to next step while decisions can take different paths depending on the case presented.   
+This way the sequential flow of steps of the algorithm is represented in the model. 
+ 
+Following the model, for the implementation the next instructions where applied:
+First:  
+1. Declare facts about available clothing items with their characteristics (type, color, weather, formality).
+Then:
+2. Formulate queries based on user input. The queries will request specific outfits with diferent combinations (weather/formality)
+3. Define rules for how to combine different clothing items. These rules will guide the decision-making process, ensuring that the recommended outfits meet user preferences and specifications.
+4. Generate Outfit Recommendations that fit the user's request and check if the colors of each item combine. If they do go to the next step (5), if not return to (4)
+5. Display the recommended outfits to the user.
+
 
 ## Implementation
 Implement your solution in a language that supports the programming paradigm.
 
 ### Implementation 1
-For the first implementation, I followed the model as can be seen "style.py" fyle. 
+For the first implementation, I followed the model as can be seen "style.pl" fyle. 
 
 To run the program in the terminal follow the instructions below:
 
@@ -53,7 +71,7 @@ To run the program in the terminal follow the instructions below:
 > ````
 > 
 ### Implementation 2
-For the second implementation,  I followed -- as can be seen "x.py" fyle. 
+For the second implementation,  I followed -- as can be seen "x.pl" fyle. 
 
 To run the program in the terminal follow the instructions below:
 
@@ -89,4 +107,5 @@ The complexity of my model is in general ---
 
 ## References
 
----
+Lucid Software Inc. (2024). What is a Flowchart. Lucidchart. Retrieved from: https://www.lucidchart.com/pages/what-is-a-flowchart-tutorial 
+
