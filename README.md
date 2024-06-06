@@ -83,36 +83,86 @@ To run the program in the terminal follow the instructions below:
 > **Example queries:**  
 > For a random outfit
 > ````
-> ?- recommend_outfits(_, _, _).
+> ?- recommend_outfit(_, _, _).
 > ```` 
 > For a specific weather outfit write (hot/cold)
 > ````
-> ?- recommend_outfits(hot, _, _).
+> ?- recommend_outfit(hot, _, _).
 > ````
 > For a specific ocasion outfit write (casual/formal/workout)
 > ````
-> % ?- recommend_outfits(_, casual, _).
+> % ?- recommend_outfit(_, casual, _).
 > ````
 > For a specific ocasion and specific weather outfit write (hot/cold), (casual/formal/workout)
 > ````
-> % ?- recommend_outfits(hot, casual, _).
-> % ?- recommend_outfits(cold, formal, _).
+> % ?- recommend_outfit(hot, casual, _).
+> % ?- recommend_outfit(cold, formal, _).
 > ````
 > 
 
 
 ## Tests
-
 To show that the implemented model works as intended and correctly solves the problem a set of documented tests are shown. 
+Looking for outfits fro the following conditions:
+1. Weather: Hot, Formality: Workout
+2. Weather: Hot, Formality: Casual
+3. Weather: Cold, Formality: _
+4. Weather: Cold, Formality: Formal
+5. Weather: _, Formality: Casual
 
 ### Implementation 1
 
-The file "x.py" contains test cases for the x
-> [!TIP]
->To test it in a terminal you need to go the folder with the file, write "-
+To test the previous cases we have:
+1. Weather: Hot, Formality: Workout  
+?- outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, hot, workout).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/bfb81379-fac5-4438-905c-0e783595a3f3)
+The outfit coresponds.
 
-image   
+3. Weather: Hot, Formality: Casual  
+?- outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, hot, casual).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/3c14be06-b045-4b33-b5d2-c78a3ec98bcc)
+The outfit coresponds.
+
+4. Weather: Cold, Formality: _  
+outfit_weather(Top, Outerwear, Bottoms, Footwear, cold).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/19b13f11-bd48-4866-b7af-6047c1c3d0a5)
+The outfit coresponds.
+
+5. Weather: Cold, Formality: Formal  
+?- outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, cold, formal).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/baabdaa8-4cca-4183-a447-d69e203071c8)
+The outfit coresponds.
+
+6. Weather: _, Formality: Casual  
+?- outfit_formality(Top, Outerwear, Bottoms, Footwear, casual).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/5acba75c-f3da-4a15-97e8-679670c08579)
+The outfit coresponds.
+
 ### Implementation 2
+To test the previous cases we have:
+1. Weather: Hot, Formality: Workout  
+?- recommend_outfit(hot, workout, _).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/95e41a6e-ae8d-44c5-b242-22aa061b8e69)
+The outfit coresponds.
+
+2. Weather: Hot, Formality: Casual  
+?- recommend_outfit(hot, casual, _).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/33b5ce02-0c74-4708-b620-b2141d283a0a)
+The outfit coresponds.
+3. Weather: Cold, Formality: _  
+?- recommend_outfit(cold, _, _).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/59ca7317-a355-4815-bec0-168d3d2845a9)
+The outfit coresponds.
+4. Weather: Cold, Formality: Formal  
+?- recommend_outfit(cold, formal, _).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/eb934a15-b549-4d8e-8609-eb9363bc11fe)
+
+The outfit coresponds.
+5. Weather: _, Formality: Casual  
+?- recommend_outfit(_, casual, _).
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/57593259-7d17-47f7-8aad-3d9a13b623e8)
+
+The outfit coresponds.
 
 
 ## Analysis 
@@ -138,9 +188,7 @@ Also in the queries. While in implmentation 1 they are different queries for the
 For implementation 2 is the same query:
 - recommend_outfits(cold, formal, _).  
 
-Adding to that, their outputs are also diferent. While in implementation 1 it oly gives you one option and stops looking, in implementation 2 it displays many options. 
-
-And given that heir time complexity is the ---same----- I consider the second implementation id a better fit for the solution given it is easier to declare clothing items, it is simpler to consult outfits for the user and it gives more than one option for the output. 
+And given that their time complexity is the ---same----- I consider the second implementation id a better fit for the solution given it is easier to declare clothing items, it is simpler to consult outfits for the user and it gives more than one option for the output. 
 
 ## References
 
