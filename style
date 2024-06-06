@@ -1,0 +1,103 @@
+/*
+Author: Valeria Zúñiga Mendoza
+Date: 05/06/2024
+Project: E4 Demonstration of a Programming Paradigm
+
+Purpose of the project: 
+Generate outfit combinations based on the specifications
+with color match, given of level of formality and weather. 
+*/
+
+% Define clothing items with their colors and level of formality
+top(lightblue_top, light_blue, casual).
+top(navyblue_top, navy, casual).
+top(black_top, black, casual).
+top(white_top, white, casual).
+top(green_top, green, casual).
+top(red_top, red, casual).
+
+top(white_workout_top, white, workout).
+top(blue_workout_top, blue, workout).
+top(black_workout_top, black, workout).
+
+top(formal_black_top, black, formal).
+top(formal_white_top, white, formal).
+
+outerwear(no_sweater, _, hot, _).
+outerwear(lululemon_jacket, black, cold, workout).
+outerwear(black_sweater, black, cold, casual).
+outerwear(white_sweater, white, cold, formal).
+outerwear(denim_jacket, denim_blue, cold, casual).
+outerwear(black_leather_jacket, black, cold, casual).
+
+bottoms(white_pants, white, cold, formal).
+bottoms(blue_denim_jeans, denim_blue, cold, casual).
+bottoms(black_jeans, black, cold, casual).
+bottoms(green_cargopants, green, cold, casual).
+bottoms(beige_cargopants, beige, cold, casual).
+bottoms(black_dots_skirt, black, hot, casual).
+bottoms(white_skirt, white, hot, formal).
+bottoms(pink_flowers_skirt, pink, hot, formal).
+bottoms(black_shorts, black, hot, casual).
+bottoms(white_shorts, white, hot, casual).
+bottoms(blue_jeans_shorts, blue, hot, casual).
+bottoms(black_biker_shorts, black, hot, workout).
+bottoms(blue_biker_shorts, blue, hot, workout).
+bottoms(blue_leggings, blue, cold, workout).
+bottoms(black_leggings, black, cold, workout).
+bottoms(pink_leggings, pink, cold, workout).
+bottoms(black_joggers, black, cold, workout).
+bottoms(gray_joggers, gray, cold, workout).
+
+footwear(white_tennis_shoes, white, casual).
+footwear(sneakers, white, workout).
+footwear(heels, black, formal).
+footwear(black_boot_heels, black, formal).
+
+% Define which colors DON'T match
+no_color_match(black, navy).
+no_color_match(navy, black).
+no_color_match(gray, beige).
+no_color_match(beige, gray).
+no_color_match(red, blue).
+no_color_match(blue, red).
+no_color_match(red, green).
+no_color_match(green, red).
+no_color_match(red, pink).
+no_color_match(pink, red).
+
+% function to compare compatibility between colors. 
+no_color_match(ColorA, ColorB, ColorC, ColorD) :-
+    no_color_match(ColorA, ColorB);
+    no_color_match(ColorA, ColorC);
+    no_color_match(ColorA, ColorD);
+    no_color_match(ColorB, ColorC);
+    no_color_match(ColorB, ColorD);
+    no_color_match(ColorC, ColorD).
+
+
+% Define outfit predicate to find matching outfits for specific weather and formality
+outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, Weather, Formality) :-
+    top(Top, ColorA, Formality),
+    outerwear(Outerwear, ColorB, Weather, Formality),
+    bottoms(Bottoms, ColorC, Weather, Formality),
+    footwear(Footwear, ColorD, Formality),
+    \+ no_color_match(ColorA, ColorB, ColorC, ColorD).
+
+% Define predicate to find matching outfits for a specific weather
+outfit_weather(Top, Outerwear, Bottoms, Footwear, Weather) :-
+    outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, Weather, _).
+
+% Define predicate to find matching outfits for specific level of formality
+outfit_formality(Top, Outerwear, Bottoms, Footwear, Formality) :-
+    outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, _, Formality).
+
+% Define outfit predicate to find matching outfits
+outfit(Top, Outerwear, Bottoms, Footwear) :-
+    outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, _, _).
+
+% Example queries:
+% ?- outfit(Top, Outerwear, Bottoms, Footwear).
+% ?- outfit_weather(Top, Outerwear, Bottoms, Footwear, hot).
+% ?- outfit_formality(Top, Outerwear, Bottoms, Footwear, casual).
+% ?- outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, hot, casual).
