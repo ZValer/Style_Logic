@@ -71,39 +71,76 @@ To run the program in the terminal follow the instructions below:
 > ````
 > 
 ### Implementation 2
-For the second implementation,  I followed -- as can be seen "x.pl" fyle. 
+For the second implementation,  I followed -- as can be seen in "style2.pl" fyle. 
 
 To run the program in the terminal follow the instructions below:
 
 > [!TIP]
-> To test it in a terminal you need to go the folder with the file, write "python x.py".
+> To test it in a terminal you need to go the folder with the file, write "swipl" and then "["style2"].".
 > 
->Then put the query and the program should return ---
->
 > 
+> Then put one of following queries and the program should return an outfit based on the restrictions.  
+> **Example queries:**  
+> For a random outfit
+> ````
+> ?- recommend_outfits(_, _, _).
+> ```` 
+> For a specific weather outfit write (hot/cold)
+> ````
+> ?- recommend_outfits(hot, _, _).
+> ````
+> For a specific ocasion outfit write (casual/formal/workout)
+> ````
+> % ?- recommend_outfits(_, casual, _).
+> ````
+> For a specific ocasion and specific weather outfit write (hot/cold), (casual/formal/workout)
+> ````
+> % ?- recommend_outfits(hot, casual, _).
+> % ?- recommend_outfits(cold, formal, _).
+> ````
+> 
+
 
 ## Tests
 
 To show that the implemented model works as intended and correctly solves the problem a set of documented tests are shown. 
 
-### Regular Expression
+### Implementation 1
 
 The file "x.py" contains test cases for the x
 > [!TIP]
->To test it in a terminal you need to go the folder with the file, write "pyhton test_x.py".
+>To test it in a terminal you need to go the folder with the file, write "-
 
 image   
+### Implementation 2
+
 
 ## Analysis 
-### Regular Expression
+### Implementation 1
 The complexity of my model is in general ---
 
-...
+### Implementation 2
 
 ## Conclusion
+Some differences are presented in both implementations.
+The first one is in the way the clothing items are declared:
+Implementation 1:
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/d666568a-6d3d-4270-8547-5828c2ceab2f)
+Implementation 2:
+![image](https://github.com/ZValer/Style_Logic/assets/111622587/80bfb68f-a0bc-478b-bc94-0237672791bc)
 
-...   
+Also in the queries. While in implmentation 1 they are different queries for the different especifications:  
+- outfit(Top, Outerwear, Bottoms, Footwear).  
+- outfit_weather(Top, Outerwear, Bottoms, Footwear, hot).  
+- outfit_formality(Top, Outerwear, Bottoms, Footwear, casual).  
+- outfit_weather_formality(Top, Outerwear, Bottoms, Footwear, hot, casual).  
 
+For implementation 2 is the same query:
+- recommend_outfits(cold, formal, _).  
+
+Adding to that, their outputs are also diferent. While in implementation 1 it oly gives you one option and stops looking, in implementation 2 it displays many options. 
+
+And given that heir time complexity is the ---same----- I consider the second implementation id a better fit for the solution given it is easier to declare clothing items, it is simpler to consult outfits for the user and it gives more than one option for the output. 
 
 ## References
 
