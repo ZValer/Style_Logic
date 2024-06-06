@@ -167,9 +167,23 @@ The outfit coresponds.
 
 ## Analysis 
 ### Implementation 1
-The complexity of my model is in general ---
+The complexity of my model overall is O(n).  
+
+Breaking down the code we can realize that the main predicate is the **outfit_weather_formality** because it combines the other predicates and includes the **no_color_match**.  
+- Defining clothing items and attributes are simple facts O(1).
+- It calls the no_color_match/2 predicate and since it performs a constant number of comparisons is O(1).
+
+For each combination of tops, outerwear, bottoms and footwear it checks the formality and weather
+making it O(n).  
+n = tops x outerwear x bottoms xootwear
 
 ### Implementation 2
+The complexity of my model overall is O(n<sup>4</sup>).   
+Breaking it down we have:
+**outfit_recommendation/3** 
+- the setof/3 predicate is used to collect all clothing items that match the given weather and formality into the Items list. O(n)
+- The member/2 predicate is used to generate combinations of tops, bottoms, outerwear, and footwear from the Items list. Which in the worst case s cenario involves (n<sup>4</sup>) combinations. Being the overall time complexity
+- no_color_match/4 same as the previous implementation is O(1).
 
 ## Conclusion
 Some differences are presented in both implementations.
@@ -188,7 +202,7 @@ Also in the queries. While in implmentation 1 they are different queries for the
 For implementation 2 is the same query:
 - recommend_outfits(cold, formal, _).  
 
-And given that their time complexity is the ---same----- I consider the second implementation id a better fit for the solution given it is easier to declare clothing items, it is simpler to consult outfits for the user and it gives more than one option for the output. 
+I consider that in the second implementation it is easier to declare clothing items, it is simpler to consult outfits for the user because it is only one query. However given the time complexity difference, Implementation 1 is the most optimal and a better fit for the solution. 
 
 ## References
 
