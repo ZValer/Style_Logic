@@ -1,0 +1,104 @@
+% Clothing items: type, name, color, weather, formality
+clothing(top, light_blue_shirt, light_blue, _, casual).
+clothing(top, navy_shirt, navy, _, casual).
+clothing(top, black_shirt, black, _, casual).
+clothing(top, white_shirt, white, _, casual).
+clothing(top, green_shirt, green, _, casual).
+clothing(top, red_shirt, red, _, casual).
+
+clothing(top, white_workout_top, white, hot, workout).
+clothing(top, blue_workout_top, blue, _, workout).
+clothing(top, black_workout_top, black, _, workout).
+
+clothing(top, black_formal_shirt, black, _, formal).
+clothing(top, white_formal_shirt, white, _, formal).
+
+clothing(outerwear, no_jacket, no_color, hot, _).
+clothing(outerwear, black_workout_jacket, black, cold, workout).
+clothing(outerwear, black_casual_jacket, black, cold, casual).
+clothing(outerwear, white_formal_jacket, white, cold, formal).
+clothing(outerwear, denim_blue_jacket, denim_blue, cold, casual).
+clothing(outerwear, black_leather_jacket, black, cold, casual).
+
+clothing(bottoms, white_formal_pants, white, cold, formal).
+clothing(bottoms, denim_blue_jeans, denim_blue, cold, casual).
+clothing(bottoms, black_jeans, black, cold, casual).
+clothing(bottoms, green_cargopants, green, cold, casual).
+clothing(bottoms, beige_cargopants, beige, cold, casual).
+clothing(bottoms, white_formal_shorts, white, hot, formal).
+clothing(bottoms, pink_formal_shorts, pink, hot, formal).
+clothing(bottoms, black_shorts, black, hot, casual).
+clothing(bottoms, white_shorts, white, hot, casual).
+clothing(bottoms, blue_shorts, blue, hot, casual).
+clothing(bottoms, black_biker_shorts, black, hot, workout).
+clothing(bottoms, blue_biker_shorts, blue, hot, workout).
+clothing(bottoms, blue_leggings, blue, _, workout).
+clothing(bottoms, black_leggings, black, _, workout).
+clothing(bottoms, pink_leggings, pink, _, workout).
+clothing(bottoms, gray_joggers, gray, cold, workout).
+
+clothing(footwear, white_sneakers, white, _, casual).
+clothing(footwear, white_workout_sneakers, white, _, workout).
+clothing(footwear, black_heels, black, _, formal).
+clothing(footwear, black_boot_heels, black, cold, formal).
+
+% Define which colors DON'T match
+no_color_match(black, navy).
+no_color_match(navy, black).
+no_color_match(gray, beige).
+no_color_match(beige, gray).
+no_color_match(red, blue).
+no_color_match(blue, red).
+no_color_match(red, green).
+no_color_match(green, red).
+no_color_match(red, pink).
+no_color_match(pink, red).
+
+% Function to compare compatibility between colors
+no_color_match(ColorA, ColorB, ColorC, ColorD) :-
+    no_color_match(ColorA, ColorB);
+    no_color_match(ColorA, ColorC);
+    no_color_match(ColorA, ColorD);
+    no_color_match(ColorB, ColorC);
+    no_color_match(ColorB, ColorD);
+    no_color_match(ColorC, ColorD).
+
+% Queries based on user input
+% Query example: outfit_recommendation(cold, formal, Outfit).
+outfit_recommendation(Weather, Formality, Outfit) :-
+    % Step 3: Define rules for combining different clothing items
+    findall(clothing(Type, Name, Color, Weather, Formality), clothing(Type, Name, Color, Weather, Formality), Items),
+    % Generate outfit combinations
+    member(clothing(top, TopName, ColorA, Weather, Formality), Items),
+    member(clothing(bottoms, BottomName, ColorB, Weather, Formality), Items),
+    member(clothing(outerwear, OuterwearName, ColorC, Weather, Formality), Items),
+    member(clothing(footwear, FootwearName, ColorD, Weather, Formality), Items),
+    % Check if all colors match
+    \+ no_color_match(ColorA, ColorB, ColorC, ColorD),
+    
+    Outfit = [clothing(top, TopName, ColorA, Weather, Formality), 
+              clothing(bottoms, BottomName, ColorB, Weather, Formality), 
+              clothing(outerwear, OuterwearName, ColorC, Weather, Formality), 
+              clothing(footwear, FootwearName, ColorD, Weather, Formality)].
+
+% Rule to generate recommended outfits
+recommend_outfits(Weather, Formality, Outfits) :-
+    findall(Outfit, outfit_recommendation(Weather, Formality, Outfit), Outfits),
+    display_outfits(Outfits).
+
+% Step 5: Display recommended outfits to the user
+display_outfits([]).
+display_outfits([Outfit | Rest]) :-
+    format_outfit(Outfit),
+    display_outfits(Rest).
+
+format_outfit(Outfit) :-
+    findall(Item, (member(Cloth, Outfit), format_item(Cloth, Item)), Items),
+    atomics_to_string(Items, '\n', OutfitStr),
+    write('Outfit:\n'), write(OutfitStr), nl, nl.
+
+format_item(clothing(Type, Name, _, _, _), Item) :-
+    format(atom(Item), '  ~w: ~w', [Type, Name]).
+
+% Example usage:
+% ?- recommend_outfits(cold, formal, _).
