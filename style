@@ -3,7 +3,7 @@ Author: Valeria Zúñiga Mendoza
 Date: 05/06/2024
 Project: E4 Demonstration of a Programming Paradigm
 
-Purpose of the project: 
+Purpose of the project: Implementation 1
 Generate outfit combinations based on the specifications
 with color match, given of level of formality and weather. 
 */
@@ -23,7 +23,7 @@ top(black_workout_top, black, workout).
 top(formal_black_top, black, formal).
 top(formal_white_top, white, formal).
 
-outerwear(no_sweater, _, hot, _).
+outerwear(no_sweater, no_color, hot, _).
 outerwear(lululemon_jacket, black, cold, workout).
 outerwear(black_sweater, black, cold, casual).
 outerwear(white_sweater, white, cold, formal).

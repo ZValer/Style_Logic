@@ -1,3 +1,13 @@
+/*
+Author: Valeria Zúñiga Mendoza
+Date: 05/06/2024
+Project: E4 Demonstration of a Programming Paradigm
+
+Purpose of the project: Implementation 2
+Generate outfit combinations based on the specifications
+with color match, given of level of formality and weather. 
+*/
+
 % Clothing items: type, name, color, weather, formality
 clothing(top, light_blue_shirt, light_blue, _, casual).
 clothing(top, navy_shirt, navy, _, casual).
@@ -67,7 +77,7 @@ no_color_match(ColorA, ColorB, ColorC, ColorD) :-
 % Query example: outfit_recommendation(cold, formal, Outfit).
 outfit_recommendation(Weather, Formality, Outfit) :-
     % Step 3: Define rules for combining different clothing items
-    findall(clothing(Type, Name, Color, Weather, Formality), clothing(Type, Name, Color, Weather, Formality), Items),
+    setof(clothing(Type, Name, Color, Weather, Formality), clothing(Type, Name, Color, Weather, Formality), Items),
     % Generate outfit combinations
     member(clothing(top, TopName, ColorA, Weather, Formality), Items),
     member(clothing(bottoms, BottomName, ColorB, Weather, Formality), Items),
@@ -82,15 +92,13 @@ outfit_recommendation(Weather, Formality, Outfit) :-
               clothing(footwear, FootwearName, ColorD, Weather, Formality)].
 
 % Rule to generate recommended outfits
-recommend_outfits(Weather, Formality, Outfits) :-
-    findall(Outfit, outfit_recommendation(Weather, Formality, Outfit), Outfits),
-    display_outfits(Outfits).
+recommend_outfit(Weather, Formality, Outfit) :-
+    outfit_recommendation(Weather, Formality, Outfit),
+    display_outfit(Outfit).
 
-% Step 5: Display recommended outfits to the user
-display_outfits([]).
-display_outfits([Outfit | Rest]) :-
-    format_outfit(Outfit),
-    display_outfits(Rest).
+% Step 5: Display the recommended outfit to the user
+display_outfit(Outfit) :-
+    format_outfit(Outfit).
 
 format_outfit(Outfit) :-
     findall(Item, (member(Cloth, Outfit), format_item(Cloth, Item)), Items),
@@ -101,4 +109,4 @@ format_item(clothing(Type, Name, _, _, _), Item) :-
     format(atom(Item), '  ~w: ~w', [Type, Name]).
 
 % Example usage:
-% ?- recommend_outfits(cold, formal, _).
+% ?- recommend_outfit(cold, formal, _).
